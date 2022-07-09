@@ -1,0 +1,37 @@
+.searchForm {
+    width: 50%;
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 3% 6%;
+    background-color: #DCD7C9;
+    border-radius: 2%;
+    max-width: 500px;
+    box-shadow: 0 3px 3px 1px rgba(0,0,0,.2);
+}
+
+.searchBar {
+    display:flex;
+    flex-direction:column;
+    width: 100%;
+    text-align: center;
+    font-size:1.5rem;
+    margin: 2%
+}
+.searchBar input {
+    font-size:2rem;
+}
+
+.searchTags {
+    margin: 2%;
+
+}
+
+.searchButton {
+    margin: 2%;
+}
+
+.searchMessage {
+    font-size: 1.5rem;
+}

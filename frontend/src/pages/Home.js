@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import SubmitReport from "./SubmitReport";
-import SearchBar from "../components/SearchBar";
+import React, { useState } from 'react'
+import { SearchBar } from 'components'
 
 export default function Home() {
-  const [data, setData] = useState([]);
-  const fetchData = () => {};
+  const [data, setData] = useState([])
+  const fetchData = () => {}
 
   return (
     <>
       <SearchBar />
-      {data.map((report) => {
+      {data.map((report, index) => {
         return (
-          <div>
+          <div key={index}>
             <h1>RECENT SCAMS</h1>
             <div>
               <strong>Scammer number:</strong>
@@ -26,9 +25,8 @@ export default function Home() {
               {report.story}
             </div>
           </div>
-        );
+        )
       })}
-      <SubmitReport />
     </>
-  );
+  )
 }

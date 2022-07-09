@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { doc, getDoc, getDocs, query, collection, where } from 'firebase/firestore'
-import { db } from '../firebase'
-import './SearchBar.css'
+import { db } from 'firebase.js'
+import { Button } from 'components'
+import styles from './SearchBar.module.css'
 
 export default function SearchBar() {
   const scamList = [
@@ -37,9 +38,8 @@ export default function SearchBar() {
 
       if (docSnap.exists()) {
         setSearchedData([docSnap.data()])
-      } else {
       }
-    } else {
+
       source = []
       for (let i = 2; i < event.target.length - 1; i++) {
         if (event.target[i].checked) {
@@ -82,10 +82,12 @@ export default function SearchBar() {
 
   return (
     <>
-      <form onSubmit={(event) => handleSearch(event)} className='body'>
-        <label>Enter a phone number or website address to check for scams</label>
-        <input placeholder='' className='input'></input>
-        <fieldset className='body'>
+      <form onSubmit={(event) => handleSearch(event)} className={styles.searchForm}>
+        <div className={styles.searchBar}>
+          <label>Enter a phone number or website address to check for scams</label>
+          <input placeholder=''></input>
+        </div>
+        <fieldset className={styles.searchTags}>
           <legend>Or... select the types of scams you wish to see</legend>
           {scamList.map((scam) => {
             return (
@@ -96,18 +98,20 @@ export default function SearchBar() {
             )
           })}
         </fieldset>
-        <button type='submit' className='button'>
+        <Button type='submit' className={styles.searchButton}>
           Submit
-        </button>
+        </Button>
+        {console.log(searchedData)}
+        {searchedData.length !== 0 ? (
+          searchedData[0].info.map((details) => {
+            return <div key={Math.random()}>{details}</div>
+          })
+        ) : (
+          <div className={styles.searchMessage}>
+            No query entered. Fill in the search bar to look up common scams
+          </div>
+        )}
       </form>
-      {console.log(searchedData)}
-      {searchedData.length !== 0 ? (
-        searchedData[0].info.map((details) => {
-          return <div key={Math.random()}>{details}</div>
-        })
-      ) : (
-        <div className='body'>No query entered. Fill in the search bar to look up common scams</div>
-      )}
     </>
   )
 }

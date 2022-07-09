@@ -1,0 +1,26 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 4%;
+  background-color: #2C3639;
+  box-shadow: 0 3px 3px 1px rgba(0,0,0,.2);
+}
+
+
+.navbarTitle {
+  font-size: 2.25rem;
+  font-style: bold;
+  font-weight: 600;
+  color: #DCD7C9;
+  font-family: "Montserrat";
+}
+
+
+.navbarLinks {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  color: #DCD7C9;
+  font-family: "Montserrat";
+}
+
