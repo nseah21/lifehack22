@@ -93,6 +93,9 @@ export default function SearchBar() {
     }
 
     if (source.length == 0) {
+      if (searchedData.length === 0) {
+        ctx.error('No results found')
+      }
       return
     }
 
