@@ -16,6 +16,7 @@ export default function SearchBar() {
   ]
 
   const [searchedData, setSearchedData] = useState([])
+  const [currentSearch, setCurrentSearch] = useState('')
 
   const allTags = [
     'Loan',
@@ -33,6 +34,8 @@ export default function SearchBar() {
     let source = ''
     if (event.target[0].value !== '') {
       source = event.target[0].value
+      setCurrentSearch(source)
+      event.target[0].value = ''
       const docRef = doc(db, 'reports', source)
       const docSnap = await getDoc(docRef)
 
@@ -47,6 +50,11 @@ export default function SearchBar() {
           event.target[i].checked = false
         }
       }
+
+      if (source.length == 0) {
+        return
+      }
+
       const q = query(collection(db, 'reports'), where('tags', 'array-contains-any', source))
       const querySnapshot = await getDocs(q)
       const arrayOfDocuments = []
@@ -56,24 +64,6 @@ export default function SearchBar() {
       })
       setSearchedData(arrayOfDocuments)
     }
-
-    // if (allTags.indexOf(source) !== -1) { // user is searching from a tag
-    //   const q = query(collection(db, "reports"), where("tags", "array-contains-any", source))
-    //   const querySnapshot = await getDocs(q);
-    //   const arrayOfDocuments = [];
-
-    //   querySnapshot.forEach((doc) => {
-    //     arrayOfDocuments.push(doc.data());
-    //   })
-    //   setSearchedData(arrayOfDocuments);
-    // } else {
-    //     const docRef = doc(db, "reports", source);
-    //     const docSnap = await getDoc(docRef);
-
-    //     if (docSnap.exists()) {
-    //       setSearchedData([docSnap.data()])
-    //     } else { }
-    //   }
   }
 
   const formatResponse = (s) => {
@@ -101,10 +91,21 @@ export default function SearchBar() {
         <Button type='submit' className={styles.searchButton}>
           Submit
         </Button>
-        {console.log(searchedData)}
+        {searchedData.length !== 0 ? (
+          <div>
+            <h2>Potential scammer: {currentSearch}</h2>
+            <h3>Scam details</h3>
+          </div>
+        ) : (
+          <div></div>
+        )}
         {searchedData.length !== 0 ? (
           searchedData[0].info.map((details) => {
-            return <div key={Math.random()}>{details}</div>
+            return (
+              <div key={Math.random()} className='scam'>
+                <div>{ "\"" + details + "\""}</div>
+              </div>
+            )
           })
         ) : (
           <div className={styles.searchMessage}>

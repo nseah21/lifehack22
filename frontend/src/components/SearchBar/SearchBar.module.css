@@ -9,23 +9,26 @@
     border-radius: 2%;
     max-width: 500px;
     box-shadow: 0 3px 3px 1px rgba(0,0,0,.2);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
 }
 
 .searchBar {
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: center;
-    font-size:1.5rem;
+    font-size:1.3em;
     margin: 2%
 }
+
 .searchBar input {
-    font-size:2rem;
+    font-size: 2rem;
 }
 
 .searchTags {
     margin: 2%;
-
 }
 
 .searchButton {
@@ -34,4 +37,8 @@
 
 .searchMessage {
     font-size: 1.5rem;
+}
+
+.scam {
+    font-size: 1rem;
 }

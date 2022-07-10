@@ -19,7 +19,7 @@ export default function SubmitReport() {
 
     const number = formatQuery(event.target[0].value)
     const url = formatQuery(event.target[1].value)
-    const details = event.target[2].value
+    const details = event.target[2].value.trim()
     let tag = 'NA'
 
     for (let i = 3; i < event.target.length - 1; i++) {
@@ -80,15 +80,15 @@ export default function SubmitReport() {
   }
 
   return (
-    <div>
+    <div className='content'>
       <h1>REPORT YOUR SCAMS HERE</h1>
       <form className='form' onSubmit={(event) => handleSubmit(event)}>
         <label>Enter phone number of scammer</label>
-        <input placeholder='Leave blank if not applicable'></input>
+        <input placeholder='Leave blank if not applicable' className='formBar'></input>
         <label>Enter website address of scammer</label>
-        <input placeholder='Leave blank if not applicable'></input>
+        <input placeholder='Leave blank if not applicable' className='formBar'></input>
         <label>Let us know what happened</label>
-        <textarea rows='4'></textarea>
+        <textarea rows='4' className='formBar'></textarea>
         <div>
           <div>What category does this scam fall under?</div>
           {scamList.map((scam) => {
