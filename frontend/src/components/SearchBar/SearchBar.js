@@ -13,6 +13,8 @@ import { db } from 'firebase.js'
 import { Button, ScamDetails } from 'components'
 import styles from './SearchBar.module.css'
 
+const regex = /(\+?65)?( *)((6|8|9)\d{7})/
+
 export default function SearchBar() {
   const scamList = [
     'Hacking Scam',
@@ -27,13 +29,23 @@ export default function SearchBar() {
   const [searchedData, setSearchedData] = useState([])
   const [currentSearch, setCurrentSearch] = useState('')
 
+  const formatQuery = (query) => {
+    const noSpaces = query.replace(/\s/g, '')
+    return noSpaces
+  }
+
   const handleSearch = async (event) => {
     // only supports 1 tag
     event.preventDefault();
     setSearchedData([]);
     let source = ''
     if (event.target[0].value !== '') {
-      source = event.target[0].value
+      source = formatQuery(event.target[0].value)
+      const match = source.match(regex)
+      if (match) {
+        source = '+65' + match[3]
+      }
+
       setCurrentSearch(source)
       event.target[0].value = ''
       const docRef = doc(db, 'reports', source)
