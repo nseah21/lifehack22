@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   doc,
   getDoc,
@@ -10,7 +10,7 @@ import {
   where,
 } from 'firebase/firestore'
 import { db } from 'firebase.js'
-import { Button, ScamDetails } from 'components'
+import { Button, ScamDetails, NotificationContext } from 'components'
 import styles from './SearchBar.module.css'
 
 const regex = /(\+?65)?( *)((6|8|9)\d{7})/
@@ -33,11 +33,11 @@ export default function SearchBar() {
     const noSpaces = query.replace(/\s/g, '')
     return noSpaces
   }
-
+  const ctx = useContext(NotificationContext)
   const handleSearch = async (event) => {
     // only supports 1 tag
-    event.preventDefault();
-    setSearchedData([]);
+    event.preventDefault()
+    setSearchedData([])
     let source = ''
     if (event.target[0].value !== '') {
       source = formatQuery(event.target[0].value)
@@ -68,10 +68,10 @@ export default function SearchBar() {
           event.target[i].checked = false
         }
       }
-      console.log(source);
+      console.log(source)
 
       if (source.length == 0) {
-        return;
+        return
       }
 
       const q = query(collection(db, 'reports'), where('tags', 'array-contains-any', source))
@@ -93,6 +93,7 @@ export default function SearchBar() {
     }
 
     if (source.length == 0) {
+      ctx.error('No results found')
       return
     }
 
@@ -104,6 +105,9 @@ export default function SearchBar() {
       arrayOfDocuments.push(doc.data())
     })
     setSearchedData(arrayOfDocuments)
+    if (searchedData.length === 0) {
+      ctx.error('No results found')
+    }
   }
 
   return (

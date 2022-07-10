@@ -26,11 +26,10 @@ let timeout = null
 
 export default function ScamDetails({ searchedData }) {
   if (searchedData.length == 0) {
-    return (
-      <div className={styles.searchMessage}>
-        No query entered. Fill in the search bar to look up common scams
-      </div>
-    )
+    return
+    // <div className={styles.searchMessage}>
+    //   No query entered. Fill in the search bar to look up common scams
+    // </div>
   }
 
   const [value, setValue] = useState(0)
