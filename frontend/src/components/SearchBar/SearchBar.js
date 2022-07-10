@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { doc, getDoc, getDocs, query, collection, where } from 'firebase/firestore'
 import { db } from 'firebase.js'
-import { Button } from 'components'
+import { Button, ScamDetails } from 'components'
 import styles from './SearchBar.module.css'
 
 export default function SearchBar() {
@@ -99,19 +99,7 @@ export default function SearchBar() {
         ) : (
           <div></div>
         )}
-        {searchedData.length !== 0 ? (
-          searchedData[0].info.map((details) => {
-            return (
-              <div key={Math.random()} className='scam'>
-                <div>{ "\"" + details + "\""}</div>
-              </div>
-            )
-          })
-        ) : (
-          <div className={styles.searchMessage}>
-            No query entered. Fill in the search bar to look up common scams
-          </div>
-        )}
+        <ScamDetails searchedData={searchedData} />
       </form>
     </>
   )
