@@ -13,6 +13,8 @@ import { db } from 'firebase.js'
 import { Button, ScamDetails } from 'components'
 import styles from './SearchBar.module.css'
 
+const regex = /(\+?65)?( *)((6|8|9)\d{7})/
+
 export default function SearchBar() {
   const scamList = [
     'Hacking Scam',
@@ -27,12 +29,23 @@ export default function SearchBar() {
   const [searchedData, setSearchedData] = useState([])
   const [currentSearch, setCurrentSearch] = useState('')
 
+  const formatQuery = (query) => {
+    const noSpaces = query.replace(/\s/g, '')
+    return noSpaces
+  }
+
   const handleSearch = async (event) => {
     // only supports 1 tag
-    event.preventDefault()
+    event.preventDefault();
+    setSearchedData([]);
     let source = ''
     if (event.target[0].value !== '') {
-      source = event.target[0].value
+      source = formatQuery(event.target[0].value)
+      const match = source.match(regex)
+      if (match) {
+        source = '+65' + match[3]
+      }
+
       setCurrentSearch(source)
       event.target[0].value = ''
       const docRef = doc(db, 'reports', source)
@@ -47,7 +60,28 @@ export default function SearchBar() {
         setDoc(docRef, { count: 0, info: [], tags: [], searches: 1 })
         setSearchedData([])
       }
-      return
+    } else {
+      source = []
+      for (let i = 2; i < event.target.length - 1; i++) {
+        if (event.target[i].checked) {
+          source.push(event.target[i].attributes.name.nodeValue)
+          event.target[i].checked = false
+        }
+      }
+      console.log(source);
+
+      if (source.length == 0) {
+        return;
+      }
+
+      const q = query(collection(db, 'reports'), where('tags', 'array-contains-any', source))
+      const querySnapshot = await getDocs(q)
+      const arrayOfDocuments = []
+
+      querySnapshot.forEach((doc) => {
+        arrayOfDocuments.push(doc.data())
+      })
+      setSearchedData(arrayOfDocuments)
     }
 
     source = []
@@ -93,14 +127,6 @@ export default function SearchBar() {
         <Button type='submit' className={styles.searchButton}>
           Submit
         </Button>
-        {searchedData.length !== 0 ? (
-          <div>
-            <h2>Potential scammer: {currentSearch}</h2>
-            <h3>Scam details</h3>
-          </div>
-        ) : (
-          <div></div>
-        )}
         <ScamDetails searchedData={searchedData} />
       </form>
     </>

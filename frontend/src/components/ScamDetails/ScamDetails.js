@@ -5,7 +5,7 @@ import styles from './ScamDetails.module.css'
 
 function getScore(count, searches) {
   const base = count * 15 + searches
-  const variance = Math.floor(Math.random() * 8)
+  const variance = Math.floor(Math.random() * 17)
 
   return Math.min(base + variance, 100)
 }
