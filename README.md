@@ -8,7 +8,7 @@ Users can also search for suspicious phone numbers or websites to check for matc
 
 Database was populated with data scraped from scamalert.sg, which was cleaned, simplified and tagged for easy user reference. 
 
-Search bar also provides a frequency meter to reflect the likelihood of a scam being real (based on number of reports and searches) 
+Search bar also provides a frequency meter to reflect the likelihood of a scam being real (based on the number of reports and searches) 
 
 ### Running the application
 Access the application on https://62ca2d3ea4c6be589d4e875d--brilliant-croissant-b9e821.netlify.app/ 
