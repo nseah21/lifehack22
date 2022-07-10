@@ -1,12 +1,15 @@
 import React from 'react'
 import { useContext } from 'react'
-import NotificationContext from 'context/notificationContext'
+import { NotificationContext } from 'components'
+
+import styles from './NotificationBar.module.css'
+
 const NotificationBar = () => {
   const notificationCtx = useContext(NotificationContext)
   return (
     notificationCtx.notification !== null && (
-      <div className={notificationCtx.notification}>
-        <p> notificationCtx.notificationText </p>
+      <div className={styles[notificationCtx.notification]}>
+        <span>{notificationCtx.notificationText}</span>
       </div>
     )
   )

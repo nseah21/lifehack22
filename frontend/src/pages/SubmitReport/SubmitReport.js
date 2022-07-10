@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './SubmitReport.css'
 import { db } from 'firebase.js'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import { Button } from 'components'
+import { Button, NotificationContext } from 'components'
 
 const regex = /(\+?65)?( *)((6|8|9)\d{7})/
 
 export default function SubmitReport() {
   // const [error, setError] = useState(false);
+  const ctx = useContext(NotificationContext)
 
   const scamList = [
     'Hacking Scam',
@@ -30,6 +31,7 @@ export default function SubmitReport() {
     const match = number.match(regex)
 
     if (!match) {
+      ctx.error('Invalid Phone number')
       return
     }
 

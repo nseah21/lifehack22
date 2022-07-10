@@ -7,8 +7,8 @@ function App() {
   return (
     <NotificationProvider>
       <BrowserRouter>
-        <NotificationBar />
         <Navbar />
+        <NotificationBar />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='report' element={<SubmitReport />} />
