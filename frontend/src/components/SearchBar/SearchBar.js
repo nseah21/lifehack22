@@ -18,16 +18,6 @@ export default function SearchBar() {
   const [searchedData, setSearchedData] = useState([])
   const [currentSearch, setCurrentSearch] = useState('')
 
-  const allTags = [
-    'Loan',
-    'Impersonation',
-    'Phishing',
-    'Online Purchase Scam',
-    'Hacked Scam',
-    'Kidnapping',
-    'Others',
-  ]
-
   const handleSearch = async (event) => {
     // only supports 1 tag
     event.preventDefault()
@@ -64,10 +54,6 @@ export default function SearchBar() {
       })
       setSearchedData(arrayOfDocuments)
     }
-  }
-
-  const formatResponse = (s) => {
-    return s.replace(/\s/g, '')
   }
 
   return (
