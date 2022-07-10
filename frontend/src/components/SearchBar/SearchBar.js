@@ -27,6 +27,7 @@ export default function SearchBar() {
   ]
 
   const [searchedData, setSearchedData] = useState([])
+  const [showScore, setShowScore] = useState(false)
 
   const formatQuery = (query) => {
     const noSpaces = query.replace(/\s/g, '')
@@ -45,12 +46,12 @@ export default function SearchBar() {
         source = '+65' + match[3]
       }
 
-      setCurrentSearch(source)
       event.target[0].value = ''
       const docRef = doc(db, 'reports', source)
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
+        setShowScore(true)
         setSearchedData([docSnap.data()])
         updateDoc(docRef, {
           searches: docSnap.data().searches ? docSnap.data().searches + 1 : 1,
@@ -92,7 +93,6 @@ export default function SearchBar() {
     }
 
     if (source.length == 0) {
-      ctx.error('No results found')
       return
     }
 
@@ -130,7 +130,7 @@ export default function SearchBar() {
         <Button type='submit' className={styles.searchButton}>
           Submit
         </Button>
-        <ScamDetails searchedData={searchedData} />
+        <ScamDetails searchedData={searchedData} showScore={showScore} />
       </form>
     </>
   )

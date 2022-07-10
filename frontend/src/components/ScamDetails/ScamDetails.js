@@ -24,7 +24,7 @@ const colors = [
 let myCounter = 0
 let timeout = null
 
-export default function ScamDetails({ searchedData }) {
+export default function ScamDetails({ searchedData, showScore }) {
   if (searchedData.length == 0) {
     return
     // <div className={styles.searchMessage}>
@@ -53,7 +53,7 @@ export default function ScamDetails({ searchedData }) {
 
   return (
     <>
-      <ReactScoreIndicator value={value} maxValue={100} stepsColors={colors} />
+      {showScore && <ReactScoreIndicator value={value} maxValue={100} stepsColors={colors} />}
       {searchedData[0].info.map((details, index) => {
         return (
           <div key={index} className={styles.scam}>
