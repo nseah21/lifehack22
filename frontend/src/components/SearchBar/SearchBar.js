@@ -27,7 +27,6 @@ export default function SearchBar() {
   ]
 
   const [searchedData, setSearchedData] = useState([])
-  const [currentSearch, setCurrentSearch] = useState('')
 
   const formatQuery = (query) => {
     const noSpaces = query.replace(/\s/g, '')
