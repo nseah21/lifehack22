@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
-import { doc, getDoc, getDocs, updateDoc, setDoc, query, collection, where } from 'firebase/firestore'
+import {
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  setDoc,
+  query,
+  collection,
+  where,
+} from 'firebase/firestore'
 import { db } from 'firebase.js'
 import { Button, ScamDetails } from 'components'
 import styles from './SearchBar.module.css'
@@ -36,29 +45,31 @@ export default function SearchBar() {
         })
       } else {
         setDoc(docRef, { count: 0, info: [], tags: [], searches: 1 })
+        setSearchedData([])
       }
-
-      source = []
-      for (let i = 2; i < event.target.length - 1; i++) {
-        if (event.target[i].checked) {
-          source.push(event.target[i].attributes.name.nodeValue)
-          event.target[i].checked = false
-        }
-      }
-
-      if (source.length == 0) {
-        return
-      }
-
-      const q = query(collection(db, 'reports'), where('tags', 'array-contains-any', source))
-      const querySnapshot = await getDocs(q)
-      const arrayOfDocuments = []
-
-      querySnapshot.forEach((doc) => {
-        arrayOfDocuments.push(doc.data())
-      })
-      setSearchedData(arrayOfDocuments)
+      return
     }
+
+    source = []
+    for (let i = 2; i < event.target.length - 1; i++) {
+      if (event.target[i].checked) {
+        source.push(event.target[i].attributes.name.nodeValue)
+        event.target[i].checked = false
+      }
+    }
+
+    if (source.length == 0) {
+      return
+    }
+
+    const q = query(collection(db, 'reports'), where('tags', 'array-contains-any', source))
+    const querySnapshot = await getDocs(q)
+    const arrayOfDocuments = []
+
+    querySnapshot.forEach((doc) => {
+      arrayOfDocuments.push(doc.data())
+    })
+    setSearchedData(arrayOfDocuments)
   }
 
   return (
