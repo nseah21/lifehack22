@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { SearchBar } from 'components'
 
 export default function Home() {
