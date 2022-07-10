@@ -14,7 +14,7 @@ Search bar also provides a frequency meter to reflect the likelihood of a scam b
 Scammers may utilize spoofed numbers, which is a huge oversight and workaround to our efforts in recording these numbers. These spoofed numbers could potentially be an individual's real phone number, which may present greater security risks to said individual.
 
 ### Running the application
-Access the application on https://62ca2d3ea4c6be589d4e875d--brilliant-croissant-b9e821.netlify.app/ 
+Access the application on https://brilliant-croissant-b9e821.netlify.app/
 
 or 
 
