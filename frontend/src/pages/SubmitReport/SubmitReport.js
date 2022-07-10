@@ -2,6 +2,7 @@ import React from 'react'
 import './SubmitReport.css'
 import { db } from 'firebase.js'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import { Button } from "components";
 
 export default function SubmitReport() {
   const scamList = [
@@ -82,8 +83,8 @@ export default function SubmitReport() {
 
   return (
     <div className='content'>
-      <h1>REPORT YOUR SCAMS HERE</h1>
       <form className='form' onSubmit={(event) => handleSubmit(event)}>
+        <h2>REPORT YOUR SCAMS HERE</h2>
         <label>Enter phone number of scammer</label>
         <input placeholder='Leave blank if not applicable' className='formBar'></input>
         <label>Enter website address of scammer</label>
@@ -101,9 +102,9 @@ export default function SubmitReport() {
             )
           })}
         </div>
-        <button className='button' type='submit'>
+        <Button className='button' type='submit'>
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   )
