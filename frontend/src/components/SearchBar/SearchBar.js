@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { doc, getDoc, getDocs, query, collection, where } from 'firebase/firestore'
+import { doc, getDoc, getDocs, updateDoc, setDoc, query, collection, where } from 'firebase/firestore'
 import { db } from 'firebase.js'
 import { Button, ScamDetails } from 'components'
 import styles from './SearchBar.module.css'
@@ -31,6 +31,11 @@ export default function SearchBar() {
 
       if (docSnap.exists()) {
         setSearchedData([docSnap.data()])
+        updateDoc(docRef, {
+          searches: docSnap.data().searches ? docSnap.data().searches + 1 : 1,
+        })
+      } else {
+        setDoc(docRef, { count: 0, info: [], tags: [], searches: 1 })
       }
 
       source = []

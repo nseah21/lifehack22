@@ -44,9 +44,10 @@ export default function SubmitReport() {
           count: docSnap.data().count + 1,
           info: oldDetails,
           tags: oldTags,
+          searches: docSnap.data()?.searches || 0,
         })
       } else {
-        setDoc(docRef, { count: 1, info: [details], tags: [tag] })
+        setDoc(docRef, { count: 1, info: [details], tags: [tag], searches: 0 })
       }
     } else {
       const docRef = doc(db, 'reports', number)

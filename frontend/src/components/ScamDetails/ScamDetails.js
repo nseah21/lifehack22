@@ -7,7 +7,7 @@ function getScore(count) {
   const base = count * 15
   const variance = Math.floor(Math.random() * 8)
 
-  return Math.max(base + variance, 100)
+  return Math.min(base + variance, 100)
 }
 
 const colors = [
