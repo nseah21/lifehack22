@@ -21,7 +21,7 @@ or
 test the application locally with the following:
 
 In the project directory, run 
-`npm install` 
+`cd frontend && npm install` 
 and 
 `npm start`
 
