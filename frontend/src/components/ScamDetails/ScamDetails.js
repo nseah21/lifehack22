@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import ReactScoreIndicator from 'react-score-indicator'
 import styles from './ScamDetails.module.css'
 
-function getScore(count) {
-  const base = count * 15
+function getScore(count, searches) {
+  const base = count * 15 + searches
   const variance = Math.floor(Math.random() * 8)
 
   return Math.min(base + variance, 100)
@@ -34,12 +34,12 @@ export default function ScamDetails({ searchedData }) {
   }
 
   const [value, setValue] = useState(0)
-  const score = getScore(searchedData[0].count)
+  const score = getScore(searchedData[0].count, searchedData[0]?.searches || 0)
 
   useEffect(() => {
     startInterval()
     return () => clearInterval(timeout)
-  }, [])
+  }, [searchedData])
 
   myCounter = value
   const startInterval = () => {
